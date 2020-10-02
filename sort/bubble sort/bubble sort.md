@@ -50,9 +50,11 @@
   
  ## 코드
   ```
-  void bubble_sort(int* arr, int num, int len){
+  //arr: 정렬할 배열, len: 배열의 길이
+  void bubble_sort(int* arr, int len){
     for(int i = 0; i < len - 1; i++){
       for(int j = 0; j <len - i - 1; j++) {
+        //바꾸어야하는 경우
         if (arr[j] > arr[j + 1]) {
           int swap = arr[j];
           arr[j] = arr[j + 1];
@@ -61,4 +63,4 @@
       }
     }
   }
-  '''
+  ```

@@ -4,10 +4,11 @@
   ## proceure code
   ```
   for i: = 2 to n
-       m = a```~1~
+       m = a(i)
        j = i-1
        while(j > 0 and a > m)
-           a = a
+           a(j + 1) = a(j)
            j := j - 1
-          
+      a(j + 1) := m
+  return (a,...... a(n) is in increasiong order}
           

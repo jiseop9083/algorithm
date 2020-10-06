@@ -156,4 +156,35 @@
  | patter[i] | A | B | C | D | A | B | E | 
  |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
  |i| 0 | 1 | 2 | 3 | 4 | 5 | 6 |
- |pi[i]| 0 | 0 | 0 | 0 | 0 | 1 | 2 | 0 | 
+ |pi[i]| 0 | 0 | 0 | 0 | 1 | 2 | 0 | 
+ 
+ 
+ 
+ ```
+ void get_pi(string pattern) {
+	int len = pattern.size();
+	//start = 0에서 시작하면 바로 matched = len이 된다.
+	//pi[0] = 0으로 처리하자
+	pi[0] = 0;
+	//pi[0] = 0이므로 1부터 탐색
+	int start = 1;
+	int matched = 0;
+	while (start + matched < len) {
+		//일치할 때
+		if (pattern[start + matched] == pattern[matched]) {
+			pi[start + matched] = 1 + matched;
+			matched++;
+		}
+		//일치하지 않을 때
+		else {
+			if (matched == 0) {
+				start++;
+			}
+			else {
+				start += (matched - pi[matched - 1]);
+				matched = pi[matched - 1];
+			}
+		}
+	}
+}
+```

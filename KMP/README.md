@@ -82,9 +82,12 @@
   	3. 틀린 index가 i번째가 되어 검색을 시작한다.
   	4. 검색에 성공하면 종료한다.
   
+  **~사실 봐도 모르니~ 예제 코드와 예시로 이해해보자!!!**
   
   
-  ```bool kmp(string text, string pattern) {
+  
+  ```
+  bool kmp(string text, string pattern) {
 	int n = text.size();
 	int m = pattern.size();
 	//검색을 시작하는 위치

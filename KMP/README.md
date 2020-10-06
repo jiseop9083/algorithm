@@ -76,11 +76,55 @@
  
  ``` pi[i] = pattern[...i]의 접두사도 되고 접미사도 되는 문자열의 최대 길이```
  
- - pattern 배열이 ABAA라고 하자. pi배열은 다음과 같다.
- 
- | patter[i] | A | B | A | A | 
-|:---:|:---:|:---:|:---:|:---:|
-|pi[i]|| 0 | 0 | 1 | 1 | 
+  - KMP알고리즘의 순서는 다음과 같다.
+  
+  ```
+  1. text에서 i번째 index에서 검색을 시작한다.
+  2. 실패했을 경우, 틀린 index에서 검색을 재게하되 단어에서 몇번째 문자부터 검색해야되는지 찾는다.
+  3. 틀린 index가 i번째가 되어 검색을 시작한다.
+  4. 검색에 성공하면 종료한다.```
+  
+  ```
+  bool kmp(string text, string pattern) {
+	int n = text.size();
+	int m = pattern.size();
+	//검색을 시작하는 위치
+	int start = 0;
+	//pattern과 일치하는 문자열의 길이
+	int matched = 0;
+	while (start <= n - m) {
+		//검색에 성공했을 때
+		if (matched < m && text[start + matched] == pattern[matched]) {
+			matched++;
+			//정답 추가(완벽히 일치할 때)
+			if (matched == m) {
+				//정답
+				return true;
+			}
+		}
+		//검색에 실패했을때
+		else {
+			//예외: 처음에는 다음 칸에서 계속
+			if (matched == 0) {
+				start++;
+			}
+			else {
+				start += matched - pi[matched - 1];
+				matched = pi[matched - 1];
+			}
+		}
+		return false;
+	}
+}
+```
+
  ---
+ 
  ### Pi 배열
  
+  - pattern 배열이 ABAA라고 하자. pi배열은 다음과 같다.
+ 
+ | patter[i] | A | B | A | A | 
+ |:---:|:---:|:---:|:---:|:---:|
+ |i| 0 | 1 | 2 | 3 | 
+ |pi[i]| 0 | 0 | 1 | 1 | 

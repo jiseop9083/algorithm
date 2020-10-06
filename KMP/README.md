@@ -87,7 +87,7 @@
   
   
   ```
-  	bool kmp(string text, string pattern) {
+  bool kmp(string text, string pattern) {
 		int n = text.size();
 		int m = pattern.size();
 		//검색을 시작하는 위치

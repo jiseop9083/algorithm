@@ -34,3 +34,9 @@
 |pattern| | | |  A | B | A | A | | | | | | | | 
 
  5. 네번째에 pattern이 존재함을 확인할 수 있었다.
+ 
+ 
+## 예제
+ - 이쯤에서 연습문제를 풀어보자
+ - 백준 10769번 <https://www.acmicpc.net/problem/10769>
+ - 

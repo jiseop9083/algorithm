@@ -4,6 +4,7 @@
   ## proceure code
     ```
     for i: = 2 to n
-          m = a~ i ~
+          m = a```~i~```
+          j = i -1
           ```
           

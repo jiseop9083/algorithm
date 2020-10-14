@@ -15,7 +15,7 @@
   
 ## 연습문제를 풀어보자!!
    **1. 백준 2309번 일곱난쟁이**
-   <https://www.acmicpc.net/problem/2309>
+   <br/> <https://www.acmicpc.net/problem/2309>
    - 아홉 명중 일곱 명을 선택했을 때 그들의 키의 합이 100을 만드는 문제이다.
    - 즉, 9개 중 7개를 선택해(조합) 정답인지 확인하면 된다.
    - **그런데,** 이를 반복문을 이용해 풀 수 있다.
@@ -43,5 +43,5 @@
 ```
 	
 	
-**2. 백준 5520번 The Clocks **
+**2. 백준 5520번 The Clocks**
 <br/> <https://www.acmicpc.net/problem/5520>

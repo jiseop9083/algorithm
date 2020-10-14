@@ -24,33 +24,33 @@
    * 핵심 코드
    
    ```
-//deep번째, 위치, 지금까지 합
-int solve(int deep, int pos, int sum) {
-	//기저조건, 7명 모임
-	if (deep == 7) {
-		//합이 100이면
-		if (sum == 100) {
-			//출력
-			for (int i = 0; i < 9; i++) {
-				if (check[i])
-					cout << num[i] << "\n";
+	//deep번째, 위치, 지금까지 합
+	int solve(int deep, int pos, int sum) {
+		//기저조건, 7명 모임
+		if (deep == 7) {
+			//합이 100이면
+			if (sum == 100) {
+				//출력
+				for (int i = 0; i < 9; i++) {
+					if (check[i])
+						cout << num[i] << "\n";
+				}
+				return 1;
 			}
-			return 1;
+			return 0;
+		}
+		for (int i = pos; i < 9; i++) {
+			check[i] = true;
+			//i번째 난쟁이 포함
+			if (solve(deep + 1, i + 1, sum + num[i]))
+				return 1;
+			check[i] = false;
+			//i번쩨 난쟁이 미포함
+			if (solve(deep, i + 1, sum))
+				return 1;
 		}
 		return 0;
 	}
-	for (int i = pos; i < 9; i++) {
-		check[i] = true;
-		//i번째 난쟁이 포함
-		if (solve(deep + 1, i + 1, sum + num[i]))
-			return 1;
-		check[i] = false;
-		//i번쩨 난쟁이 미포함
-		if (solve(deep, i + 1, sum))
-			return 1;
-	}
-	return 0;
-}
 
 ```
    - **그런데,** 이를 반복문을 이용해 풀 수 있다.

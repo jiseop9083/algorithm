@@ -23,7 +23,7 @@
    
    * 핵심 코드
    
-   ``
+   ```
 //deep번째, 위치, 지금까지 합
 int solve(int deep, int pos, int sum) {
 	//기저조건, 7명 모임

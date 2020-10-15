@@ -126,4 +126,41 @@
   - 그 후 중간 지점 근처에서 더 가까운 점이 있는지 검사하자
   - 말로 설명하면 어려우니 코드로 보자
   
+
+```
+//start와 end는 점의 번호
+int divide_conquer(int start, int end) {
+	//점이 두 개일때
+	if (start + 1 == end) {
+		return dis(ve[start], ve[end]);
+	}
+	//점이 세 개일때
+	else if (start + 2 == end) {
+		return min(dis(ve[start], ve[end]),min(dis(ve[start], ve[start + 1]) ,dis(ve[start + 1], ve[end])) );
+	}
+	int mid = (start + end) / 2;
+	int line = (ve[mid].second + ve[mid + 1].second) / 2;
+	//오른쪽과 왼쪽 영역 중 최소 거리
+	int ret = min(divide_conquer(start, mid), divide_conquer(mid + 1, end));
+	//x좌표 거리의 제곱이가 ret이하인 점들
+	vector<pair<int, int>> mid_ve;
+	for (int i = start; i <= end; i++) {
+		if ((line - ve[i].second) * (line - ve[i].second) < ret) {
+			mid_ve.push_back(ve[i]);
+		}
+	}
+	sort(mid_ve.begin(), mid_ve.end(), comY);
+	for (int i = 0; i < mid_ve.size(); i++) {
+		//y좌표 차이의 제곱이 ret보다 작은 지점만 검사
+		for (int j = i + 1; j < mid_ve.size() &&
+			(mid_ve[j].first - mid_ve[i].first) * (mid_ve[j].first - mid_ve[i].first) < ret; j++) {
+			ret = min(ret, dis(mid_ve[i], mid_ve[j]));
+		}
+	}
+	return ret;
+}
   
+
+```
+
+ - 그렇다!

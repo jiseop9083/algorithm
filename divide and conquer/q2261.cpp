@@ -30,8 +30,9 @@ bool comY(pair<int, int> a, pair<int, int> b) {
 	return a.first < b.first;
 }
 
-int divide_conquer(int start, int end) {//start와 end는 점의 번호
-	
+//start와 end는 점의 번호
+int divide_conquer(int start, int end) {
+	//점이 두개일때
 	if (start + 1 == end) {
 		return dis(ve[start], ve[end]);
 	}

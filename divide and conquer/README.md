@@ -23,7 +23,7 @@
      
    ---
      
-   **2. 백준 11729번 하노이 탑 이동 순서**
+  **2. 백준 11729번 하노이 탑 이동 순서**
      - 대표적인 작은 문제와 나머지로 나누어 해결할 수 있는 문제이다.
      - 현재 n개의 원판 있는 곳을 start, 원판을 이동시킬 목적지를 end, 남은 한 자리를 mid라고 하자.
      - start에서 end로 n개를 이동시키는 방법을 나누어 생각해보자
@@ -59,14 +59,19 @@
      - **n-1개의 원판을 start에서 mid로 옮기고, n번째 원판을 start에서 end로, 마지막으로 n-1개의 원판을 mid에서 end로 옮기는 과정을 나눌 수 있다!!!!!!!!**
      - 방법을 알았으면 구현해보자!
      
-     - 핵심 코드
-     ```
-     //
+  - 핵심 코드
+  ```
+    //원판 개수, 시작점, 남은 한 자리, 도착점
     void slove(int deep, int start, int mid, int end) {
+	    //원판이 없으면 이동X
 	    if (deep == 0) {
 		    return;
 	    }
+	    //n-1개의 원판 start->end
 	    slove(deep - 1, start, end, mid);
+	    //n번째 원판 이동(출력)
 	    cout << start << " " << end << "\n";
+	    //n-1개의 원판 mid->end
 	    slove(deep - 1, mid, start, end);
     }
+	```

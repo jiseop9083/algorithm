@@ -64,3 +64,5 @@
 	    slove(deep - 1, mid, start, end);
     }
 ```
+
+  **3. 히스토그램**

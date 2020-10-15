@@ -57,5 +57,16 @@
      <br/>
      <br/>
      - **n-1개의 원판을 start에서 mid로 옮기고, n번째 원판을 start에서 end로, 마지막으로 n-1개의 원판을 mid에서 end로 옮기는 과정을 나눌 수 있다!!!!!!!!**
+     - 방법을 알았으면 구현해보자!
      
-     - 방버블 알았으면 구현해보자!
+     - 핵심 코드
+     ```
+     //
+    void slove(int deep, int start, int mid, int end) {
+	    if (deep == 0) {
+		    return;
+	    }
+	    slove(deep - 1, start, end, mid);
+	    cout << start << " " << end << "\n";
+	    slove(deep - 1, mid, start, end);
+    }

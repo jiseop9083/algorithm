@@ -1,5 +1,3 @@
-//백준 2261번 가장 가까운 두 점
-
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -32,16 +30,18 @@ bool comY(pair<int, int> a, pair<int, int> b) {
 
 //start와 end는 점의 번호
 int divide_conquer(int start, int end) {
-	//점이 두개일때
+	//점이 두 개일때
 	if (start + 1 == end) {
 		return dis(ve[start], ve[end]);
 	}
+	//점이 세 개일때
 	else if (start + 2 == end) {
 		return min(dis(ve[start], ve[end]),min(dis(ve[start], ve[start + 1]) ,dis(ve[start + 1], ve[end])) );
 	}
 	int mid = (start + end) / 2;
 	int line = (ve[mid].second + ve[mid + 1].second) / 2;
 	int ret = min(divide_conquer(start, mid), divide_conquer(mid + 1, end));
+	//x좌표 거리의 제곱이가 ret이하인 점들
 	vector<pair<int, int>> mid_ve;
 	for (int i = start; i <= end; i++) {
 		if ((line - ve[i].second) * (line - ve[i].second) < ret) {

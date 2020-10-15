@@ -78,36 +78,36 @@
    - 이제, 핵심코드를 살펴보면서 알아보자!
    
    ```
-   int histo(int start, int end) {
-	//막대가 하나일때
-	if (start == end) {
-		return num[start];
-	}
-	int mid = (start + end) / 2;
-	//왼쪽과 오른쪽확인
-	int ret = max(histo(start, mid), histo(mid + 1, end));
-	//왼쪽으로 가는 변수
-	int left = mid;
-	//오른쪽으로 가는 변수
-	int right = mid + 1;
-	int height = min(num[left], num[right]);
-	ret = max(ret, height * 2);
-	while (start < left || right < end) {
-		//오른쪽으로 가는 경우
-		//1. left가 끝까지 탐색했을 때
-		//2. 오른쪽이 왼쪽보다 더 클 때
-		if (right < end && (left == start || num[left - 1] < num[right + 1])) {
-			right++;
-			height = min(height, num[right]);
+   	int histo(int start, int end) {
+		//막대가 하나일때
+		if (start == end) {
+			return num[start];
 		}
-		//그 외의 경우는 왼쪽으로 가자
-		else {
-			left--;
-			height = min(height, num[left]);
+		int mid = (start + end) / 2;
+		//왼쪽과 오른쪽확인
+		int ret = max(histo(start, mid), histo(mid + 1, end));
+		//왼쪽으로 가는 변수
+		int left = mid;
+		//오른쪽으로 가는 변수
+		int right = mid + 1;
+		int height = min(num[left], num[right]);
+		ret = max(ret, height * 2);
+		while (start < left || right < end) {
+			//오른쪽으로 가는 경우
+			//1. left가 끝까지 탐색했을 때
+			//2. 오른쪽이 왼쪽보다 더 클 때
+			if (right < end && (left == start || num[left - 1] < num[right + 1])) {
+				right++;
+				height = min(height, num[right]);
+			}
+			//그 외의 경우는 왼쪽으로 가자
+			else {
+				left--;
+				height = min(height, num[left]);
+			}
+			//매번 직사각형 넓이 구하기
+			ret = max(ret, height * (right - left + 1));
 		}
-		//매번 직사각형 넓이 구하기
-		ret = max(ret, height * (right - left + 1));
+		return ret;
 	}
-	return ret;
-}
 

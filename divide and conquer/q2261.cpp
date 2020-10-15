@@ -1,4 +1,4 @@
-//백준 2261번 가장 가까운 두 
+//백준 2261번 가장 가까운 두 점
 
 #include <iostream>
 #include <vector>
@@ -9,10 +9,12 @@ int n;
 vector<pair<int, int>> ve;//y, x
 int an;
 
+//거리 구하는 함수
 int dis(pair<int, int> a, pair<int, int> b) {
 	return ((a.first - b.first) * (a.first - b.first)) + ((a.second - b.second) * (a.second - b.second));
 }
 
+//X좌표 기준 정렬
 bool comX(pair<int, int> a, pair<int, int> b) {
 	if (a.second == b.second) {
 		return a.first < b.first;
@@ -20,6 +22,7 @@ bool comX(pair<int, int> a, pair<int, int> b) {
 	return a.second < b.second;
 }
 
+//Y좌표 기준 정렬
 bool comY(pair<int, int> a, pair<int, int> b) {
 	if (a.first == b.first) {
 		return a.second < b.second;
@@ -28,6 +31,7 @@ bool comY(pair<int, int> a, pair<int, int> b) {
 }
 
 int divide_conquer(int start, int end) {//start와 end는 점의 번호
+	
 	if (start + 1 == end) {
 		return dis(ve[start], ve[end]);
 	}

@@ -68,3 +68,46 @@
 ---
 
   **3. 백준 1725번 히스토그램**
+   - 히스토그램에서 가장 큰 직사각형의 넓이를 출력하면된다.
+   - 브루트 포스(완전 탐색)으로 생각해보자
+   - 시작점이 i번째이고 끝 점 j번째라고 생각해보자
+   - 순회하면서 O(n^2)만에 문제를 해결할 수 있다.
+   - 하지만 n은 10만이고 시간 제한이 2초이므로 완전 탐색으로 시간 내에 해결하는 것은 힘들다.
+   - 분할 정복 알고리즘을 사용하자.
+   - 가장 큰 직사각형이 왼쪽 부분에 있는 경우, 오른쪽에 있는 경우, 중간에 걸쳐있는 경우로 나눌 수 있다.
+   - 이제, 핵심코드를 살펴보면서 알아보자!
+   
+   ```
+   int histo(int start, int end) {
+	//막대가 하나일때
+	if (start == end) {
+		return num[start];
+	}
+	int mid = (start + end) / 2;
+	//왼쪽과 오른쪽확인
+	int ret = max(histo(start, mid), histo(mid + 1, end));
+	//왼쪽으로 가는 변수
+	int left = mid;
+	//오른쪽으로 가는 변수
+	int right = mid + 1;
+	int height = min(num[left], num[right]);
+	ret = max(ret, height * 2);
+	while (start < left || right < end) {
+		//오른쪽으로 가는 경우
+		//1. left가 끝까지 탐색했을 때
+		//2. 오른쪽이 왼쪽보다 더 클 때
+		if (right < end && (left == start || num[left - 1] < num[right + 1])) {
+			right++;
+			height = min(height, num[right]);
+		}
+		//그 외의 경우는 왼쪽으로 가자
+		else {
+			left--;
+			height = min(height, num[left]);
+		}
+		//매번 직사각형 넓이 구하기
+		ret = max(ret, height * (right - left + 1));
+	}
+	return ret;
+}
+

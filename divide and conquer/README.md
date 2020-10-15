@@ -78,7 +78,7 @@
    - 이제, 핵심코드를 살펴보면서 알아보자!
    
    ```
-   int histo(int start, int end) {
+   	int histo(int start, int end) {
 		//막대가 하나일때
 		if (start == end) {
 			return num[start];

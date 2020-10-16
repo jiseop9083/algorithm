@@ -80,6 +80,7 @@ int num[50];
 
 int fibo(int n) {
 	int& ret = num[n];
+	//이전에 호출된적이 있으면
 	if (ret != -1) {
 		return ret;
 	}
@@ -131,6 +132,44 @@ pair<int, int> fibo(int n) {
 	}
 	return ret = { fibo(n - 1).first + fibo(n - 2).first, 
 				fibo(n - 1).second + fibo(n - 2).second };
+}
+
+```
+
+### 2. 백준 11051번 이항 계수 2
+ - 간단한 문제이다 nCk를 10007로 나눈 나머지를 구하면 된다.
+ - nCk = n-1Ck-1 + n -1Ck라는 성질만 이용하면 피보나치문제처럼 구할 수 있다.
+ - 다면 독립 변수가 n, k로 두개이므로 이차원 배열을 이용한 DP를 구현해야한다.
+ <br/>
+ 
+ **참고**
+ - a = x*10007 + c, b = y*10007 + d라고 하자. 
+ - (a + b) % 10007 = (x*10007 + y* 10007 + c + d) % 10007 = (c + d) % 10007이다.
+ - 즉, a + b의 나머지는 a의 나머지와 b의 나머지의 합의 나머지와 같다.
+ 
+``` 
+int dp(int n, int k) {
+	int& ret = num[n][k];
+	//이전에 호출된적이 있으면 바로 return
+	if (ret != -1) {
+		return ret;
+	}
+	//이항계수
+	return ret = (dp(n -1, k) + dp(n -1, k - 1)) % 10007;
+}
+
+int main() {
+	int n, k;
+	cin >> n >> k;
+	memset(num, -1, sizeof(num));
+//기본값설정
+//이항계수값이 1인 경우
+	for (int i = 0; i <= n; i++) {
+		num[i][i] = 1;
+		num[i][0] = 1;
+	}
+	cout << dp(n, k);
+	return 0;
 }
 
 ```

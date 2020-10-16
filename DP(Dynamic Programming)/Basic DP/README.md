@@ -23,7 +23,30 @@
  - **백준 2747번 피보니치 수**
  <br/><https://www.acmicpc.net/problem/2747>
  
- ### dp없이 구현한 n번째 
+ ### dp없이 구현
+ 
+ ```
+#include <iostream>
+using namespace std;
+
+int fibo(int n) {
+	if (n == 0) return 0;
+	if (n == 1) return 1;
+	return fibo(n - 1) + fibo(n - 2);
+}
+
+int main() {
+	int n;
+	cin >> n;
+	cout << fibo(n);
+	return 0;
+}
+
+```
+
+~DP없이 풀면 시간초과나요!!~
+
+ ### bottom-up 방식
  
  ```
 #include <iostream>
@@ -34,9 +57,11 @@ int num[50];
 int main() {
 	 int n;
 	 cin >> n;
+	 //기저 조건
 	 num[0] = 0;
 	 num[1] = 1;
 	 for (int i = 2; i <= n; i++) {
+	 //num[i]에 저장
 		  num[i] = num[i - 1] + num[i - 2];
 	 }
 	 cout << num[n];
@@ -44,9 +69,41 @@ int main() {
 }
 
 ```
+### top-down 방식
 
+```
+#include <iostream>
+#include <cstring>
+using namespace std;
 
- 
+int num[50];
+
+int fibo(int n) {
+	int& ret = num[n];
+	if (ret != -1) {
+		return ret;
+	}
+	return ret = fibo(n - 1) + fibo(n - 2);
+}
+
+int main() {
+	memset(num, -1, sizeof(num));
+	int n;
+	cin >> n;
+	num[0] = 0;
+	num[1] = 1;
+	cout << fibo(n);
+	return 0;
+}
+
+```
+
+- 두방식의 차이**
+| |장점|단점|
+|:------:|:---:|:---:|
+|top-down|구현이 쉬움|메모리와 시간을 많이 먹음|
+|bottom-up|메모리와 시간을 적게 먹음|직관적이지 않음|
+
 ## 문제를 풀어보자!!!
  
 ### 1. 백준 1003번 피보나치 함수

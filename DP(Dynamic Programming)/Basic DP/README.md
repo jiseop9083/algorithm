@@ -183,6 +183,32 @@ int main() {
  - 이 문제 역시 DP를 이용하면 해결 가능하다.
 <br/>
 <br/>
- - 최적해에서 n번째 짐까지 담았을때, 무게가 m일때의 가치는 유일하다.
+ - 최적해에서 n번째 짐까지 담을 수 있고, 최대 무게가 m일때의 가치는 유일하다.
  - 고로, 이는 여러 번 계산할 이유가 없다.
+ - 배열을 dp[n][m]로 잡고 bottom-up으로 구현하자!
+ - i번째 짐을 추가하지 않는 경우 가치는 **dp[i-1][m]**이고
+ - i번째 짐을 추가하는 경우 가치는 **dp[i-1][m-짐의 무게] + 짐의 가치**가 될 것이다.
+ 
+ 
+ ```
+for (int i = 1; i <= n; i++) {
+        int a, b;
+        cin >> a >> b;
+        item[i] = { a, b };//무게, 가치
+}
+
+for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= k; j++) {
+        //i번째 짐 추가 안함
+        knapsack[i][j] = max(knapsack[i][j], knapsack[i - 1][j]);
+        if (j - item[i].first >= 0) {
+                //i번째 짐 추가함
+            knapsack[i][j] = max(knapsack[i][j], knapsack[i - 1][j - item[i].first] + item[i].second);
+        }
+    }
+}
+//출력
+cout << knapsack[n][k];
+```
+    
 

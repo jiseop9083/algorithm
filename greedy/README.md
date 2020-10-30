@@ -35,15 +35,15 @@
  - 핵심코드는 다음과 같다.
  
  ```
- //우선순위큐를 사용해 계산을 빠르게
- //큐 안에 1개의 값이 남을 때까지 반복
+ 	//우선순위큐를 사용해 계산을 빠르게
+ 	//큐 안에 1개의 값이 남을 때까지 반복
 	while (pq.size() >= 2) {
-  //가장 큰 값 2개 빼내기
+  	//가장 큰 값 2개 빼내기
 		int first = pq.top();
 		pq.pop();
 		int second = pq.top();
 		pq.pop();
-    //
+    	//답추가
 		an += first * second;
 		pq.push(first + second);
 	}

@@ -22,14 +22,14 @@
 ```
 //끝나는 기준시간 기준으로 정렬(num은 pair<int, int>형)
 sort(num, num + n, com);
-	int start = 0;
-	for (int i = 0; i < n; i++) {
-		//회의실 배정 가능하면
-		if (start <= num[i].first) {
-			an++;
-			start = num[i].second;
-		}
+int start = 0;
+for (int i = 0; i < n; i++) {
+	//회의실 배정 가능하면
+	if (start <= num[i].first) {
+		an++;
+		start = num[i].second;
 	}
+}
 ```
 
 ## 백준 14241번 슬라임 합치기

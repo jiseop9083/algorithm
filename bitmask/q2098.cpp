@@ -1,3 +1,5 @@
+//백준 2098번 외판원 순회
+
 #include <iostream>
 #include <cstring>
 #include <algorithm>
@@ -38,6 +40,7 @@ int main() {
 		if (cost[0][i] == 0) {
 			continue;
 		}
+		//0번째에서 i번째로 
 		city[1 << i][i] = cost[0][i];
 	}
 	cout << dp(((1 << n) - 1), 0);

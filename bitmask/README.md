@@ -63,11 +63,15 @@ int dp(int visit, int pos) {
 	if (ret != -1) {
 		return ret;
 	}
+	//큰 값을 넣자
 	ret = INF;
 	for (int i = 0; i < n; i++) {
+		//이동할 수 없거나 방문했던 곳이면 패스
+		//!(visit & ( 1 << i ))는 i번째 원소가 0이면 
 		if (cost[i][pos] == 0 || !(visit & (1 << i))) {
 			continue;
 		}
+		//i번째 도시에서 오는 경로 확인 후 업데이트
 		ret = min(ret, cost[i][pos] + dp(visit&(~(1 << pos)), i));
 	}
 	return ret;

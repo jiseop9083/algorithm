@@ -22,6 +22,4 @@
 |최소 원소 찾기|int firstbit = (bit & -bit); |켜져있는 비트 중 가장 작은 비트 |
 |최소 원소 지우기| bit &= (bit - 1); |켜져있는 비트 중 가장 작은 비트 끄기 |
 |모든 부분 집합 순회하기|for(int subset = bit; subset; subset = ((sebset - 1) & bit))| 부분 집합 |
-| | | |
-| | | |
-| | | |
+

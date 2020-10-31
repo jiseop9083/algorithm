@@ -55,5 +55,22 @@
 | 16 | 1111 | o | o | o | o |
 
 
+-다음의 핵심코드는 외판원 순회문제를 top-down 방식으로 구현한 것이다. 
 
+```
+int dp(int visit, int pos) {
+	int& ret = city[visit][pos];
+	if (ret != -1) {
+		return ret;
+	}
+	ret = INF;
+	for (int i = 0; i < n; i++) {
+		if (cost[i][pos] == 0 || !(visit & (1 << i))) {
+			continue;
+		}
+		ret = min(ret, cost[i][pos] + dp(visit&(~(1 << pos)), i));
+	}
+	return ret;
+}
+```
  

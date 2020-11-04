@@ -153,3 +153,45 @@ public:
 
 
 ### 백준 9202번 Boggle
+
+<https://www.acmicpc.net/problem/9202>
+- 4x4 보드에서 해당하는 모든 문자열을 찾는 것이다.
+- 이 문제를 보면 브루트 포스가 떠오르지만 일일히 비교하기엔 시간이 오래걸린다.
+- 즉, 문자열을 효율적으로 비교하는 트라이를 이용하는 문제이다.
+- 이때, 보드가 여러 개이므로 한 번만 입력받는 **"단어 사전"**에 있는 단어를 trie에 저장하자
+- 이제 핵심코드인 find함수를 보자
+
+```
+	//정답을 찾는 함수(BFS로 구현)
+	//word는 현재 문자열, y,x는 좌표값
+	void find(string word, int y, int x) {
+		//문자가 8이상은 아웃
+		if (word.size() == 8) {
+			return;
+		}
+		//이동했던 곳임을 체크
+		check[y][x] = true;
+		word += board[y][x];
+
+		Trie* pNode = this->child[tonum(board[y][x])];
+		//현재의 문자가 없으면 바로 가지치기
+		if (pNode == NULL) {
+			check[y][x] = false;
+			return;
+		}
+		//정답을 찾았을 때
+		if (pNode->terminal == true) {
+			se.insert(word);
+		}
+		for (int i = 0; i < 8; i++) {
+			int xx = x + dx[i];
+			int yy = y + dy[i];
+			//그리드 밖일때
+			if (xx < 0 || xx >= 4 || yy < 0 || yy >= 4 || check[yy][xx]) {
+				continue;
+			}
+			pNode->find(word, yy, xx);
+		}
+		check[y][x] = false;
+	}
+	```

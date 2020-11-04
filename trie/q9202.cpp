@@ -4,12 +4,11 @@
 #include <string>
 #include <cstring>
 #include <set>
-#include <vector>
 #include <algorithm>
 using namespace std;
 
-int dx[8] = { 0,0, 1, -1 , 1, 1, -1 ,-1};
-int dy[8] = { 1, -1, 0,0 , 1, -1, 1, -1};
+int dx[8] = { 0,0, 1, -1 , 1, 1, -1 ,-1 };
+int dy[8] = { 1, -1, 0,0 , 1, -1, 1, -1 };
 const int table[9] = { 0, 0, 0,1, 1,2,3,5,11 };
 bool check[4][4];
 set<string> se;
@@ -23,7 +22,7 @@ class Trie {
 public:
 	Trie* child[26];
 	bool terminal;
-	
+
 	Trie() : terminal(false) {
 		for (int i = 0; i < 26; i++) {
 			child[i] = NULL;
@@ -43,11 +42,11 @@ public:
 		return (int)(c - 'A');
 	}
 
-	void insert(string word) {
+	void insert(const string& word) {
 		Trie* pNode = this;
 		for (int i = 0; i < word.size(); i++) {
 			int index = tonum(word[i]);
-			if (!pNode->child[index]) {
+			if (pNode->child[index] == NULL) {
 				pNode->child[index] = new Trie();
 			}
 			pNode = pNode->child[index];
@@ -69,9 +68,7 @@ public:
 		}
 		if (pNode->terminal == true) {
 			se.insert(word);
-
 		}
-
 		for (int i = 0; i < 8; i++) {
 			int xx = x + dx[i];
 			int yy = y + dy[i];
@@ -122,8 +119,7 @@ int main() {
 			score += table[iter->size()];
 		}
 		cout << score << " " << an << " " << se.size() << "\n";
-		
+
 	}
-	
 	return 0;
 }

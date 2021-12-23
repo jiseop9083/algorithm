@@ -18,20 +18,19 @@
 1. 기본
  <details>
  <summary>기본</summary>
-<div markdown="1">
- DFS
- BFS
- 위상정렬
- 백트래킹
- Euler Path/Circuit
- SCC(Strong Connected Component)
- 2-SAT
- 단절점
- MST
- Global min-cut
-</div>
+ <div markdown="1">DFS</div>
+ <div markdown="2">BFS</div>
+ <div markdown="3">위상정렬</div>
+ <div markdown="4">백트래킹</div>
+ <div markdown="5">Euler Path/Circuit</div>
+ <div markdown="6">SCC(Strong Connected Component)</div>
+ <div markdown="7">2-SAT</div>
+ <div markdown="8">단절점</div>
+ <div markdown="9">MST</div>
+ <div markdown="10">Global min-cut</div>
 </details>
 
+ <details>
 <summary>최단 경로</summary>
 <div markdown="1">
  Dijkstra
@@ -41,6 +40,7 @@
 </div>
 </details>
 
+<details>
 <summary>Network flow & matching</summary>
 <div markdown="1">
 포드-풀커슨

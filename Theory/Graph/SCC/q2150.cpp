@@ -1,5 +1,5 @@
 //Strongly Connected Component
-//SCC 기본 
+//SCC 기본 - Tarjan's Algorithm
 #include <iostream>
 #include <algorithm>
 #include <vector>

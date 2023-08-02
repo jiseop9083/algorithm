@@ -1,4 +1,4 @@
-//´À¸®°Ô °»½ÅµÇ´Â ¼¼±×¸ÕÆ® Æ®¸®
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÅµÇ´ï¿½ ï¿½ï¿½ï¿½×¸ï¿½Æ® Æ®ï¿½ï¿½
 
 #include <iostream>
 #include <vector>
@@ -6,70 +6,66 @@ using namespace std;
 using ll = long long;
 
 class Segtree {
-public:
-	//Æ®¸®¿Í lazy°ª
-	vector<ll> tree;
-	vector<ll> lazy;
-	int size;
+ public:
+  // Æ®ï¿½ï¿½ï¿½ï¿½ lazyï¿½ï¿½
+  vector<ll> tree;
+  vector<ll> lazy;
+  int size;
 
-	Segtree(int t) {
-		for (size = 1; size < t; size *= 2);
-		tree.resize(size * 2);
-		lazy.resize(size * 2);
-	}
-	
-	//lazyÀüÆÄ
-	void lazy_update(int pos, int start, int end) {
-		if (lazy[pos] != 0) {
-			//lazy°ªÀ» ´õÇÏ±â
-			tree[pos] += ((ll)end - (ll)start + 1) * lazy[pos];
-			if (start != end) {
-				//ÀüÆÄ
-				lazy[pos * 2] += lazy[pos];
-				lazy[pos * 2 + 1] += lazy[pos];
-			}
-			lazy[pos] = 0;
-		}
-	}
+  Segtree(int t) {
+    for (size = 1; size < t; size *= 2)
+      ;
+    tree.resize(size * 2);
+    lazy.resize(size * 2);
+  }
 
-	//°£¼ÒÈ­
-	void update(int left, int right, ll diff) {
-		update(1, 1, size, left, right, diff);
-	}
+  // lazyï¿½ï¿½ï¿½ï¿½
+  void lazy_update(int pos, int start, int end) {
+    if (lazy[pos] != 0) {
+      // lazyï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
+      tree[pos] += ((ll)end - (ll)start + 1) * lazy[pos];
+      if (start != end) {
+        // ï¿½ï¿½ï¿½ï¿½
+        lazy[pos * 2] += lazy[pos];
+        lazy[pos * 2 + 1] += lazy[pos];
+      }
+      lazy[pos] = 0;
+    }
+  }
 
-	void update(int pos, int start, int end, int left, int right, ll diff) {
-		lazy_update(pos, start, end);
-		if (start > right || end < left) {
-			return;
-		}
-		else if (left <= start && end <= right) {
-			lazy[pos] += diff;
-			//µÎ ÀÚ½Ä¿¡°Ô ¶È°°ÀÌ ÀüÆÄ
-			lazy_update(pos, start, end);
-		}
-		else {
-			int mid = (start + end) / 2;
-			update(pos * 2, start, mid, left, right, diff);
-			update(pos * 2 + 1, mid + 1, end, left, right, diff);
-			tree[pos] = tree[pos * 2] + tree[pos * 2 + 1];
-		}
-	}
+  // ï¿½ï¿½ï¿½ï¿½È­
+  void update(int left, int right, ll diff) {
+    update(1, 1, size, left, right, diff);
+  }
 
-	ll sum(int left, int right) {
-		return sum(1, 1, size, left, right);
-	}
+  void update(int pos, int start, int end, int left, int right, ll diff) {
+    lazy_update(pos, start, end);
+    if (start > right || end < left) {
+      return;
+    } else if (left <= start && end <= right) {
+      lazy[pos] += diff;
+      // ï¿½ï¿½ ï¿½Ú½Ä¿ï¿½ï¿½ï¿½ ï¿½È°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+      lazy_update(pos, start, end);
+    } else {
+      int mid = (start + end) / 2;
+      update(pos * 2, start, mid, left, right, diff);
+      update(pos * 2 + 1, mid + 1, end, left, right, diff);
+      tree[pos] = tree[pos * 2] + tree[pos * 2 + 1];
+    }
+  }
 
-	ll sum(int pos, int start, int end, int left, int right) {
-		lazy_update(pos, start, end);
-		if (start > right || end < left) {
-			return 0;
-		}
-		else if (left <= start && end <= right) {
-			return tree[pos];
-		}
-		else {
-			int mid = (start + end) / 2;
-			return sum(pos * 2, start, mid, left, right) + sum(pos * 2 + 1, mid + 1, end, left, right);
-		}
-	}
+  ll sum(int left, int right) { return sum(1, 1, size, left, right); }
+
+  ll sum(int pos, int start, int end, int left, int right) {
+    lazy_update(pos, start, end);
+    if (start > right || end < left) {
+      return 0;
+    } else if (left <= start && end <= right) {
+      return tree[pos];
+    } else {
+      int mid = (start + end) / 2;
+      return sum(pos * 2, start, mid, left, right) +
+             sum(pos * 2 + 1, mid + 1, end, left, right);
+    }
+  }
 };

@@ -1,45 +1,46 @@
-//±âº»ÀûÀÎ ´ÙÀÌ³ª¹Ö ÇÁ·Î±×·¡¹Ö(µ¿Àû°èÈ¹¹ý)
-//ÇÙ½ÉÀº °°Àº ¿¬»êÀ» ÇÏÁö ¾Ê´Â °ÍÀÌ´Ù.
-//memoization(¸Þ¸ðÀÌÁ¦ÀÌ¼Ç)À» ÀûÀýÈ÷ »ç¿ëÇÏÀÚ
-//1Â÷¿ø DP
+// ï¿½âº»ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì³ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½Î±×·ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¹ï¿½ï¿½) ï¿½Ù½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½
+// ï¿½ï¿½ï¿½Ì´ï¿½. memoization(ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ DP
 
-//±âº»¹®Á¦
-//¹éÁØ 1003¹ø ÇÇº¸³ªÄ¡ ÇÔ¼ö
-//2XnÅ¸ÀÏ¸µ
+// ï¿½âº»ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ï¿½ 1003ï¿½ï¿½ ï¿½Çºï¿½ï¿½ï¿½Ä¡ ï¿½Ô¼ï¿½
+// 2XnÅ¸ï¿½Ï¸ï¿½
 
-//ÇÇº¸³ªÄ¡ ÇÔ¼ö ¹®Á¦ Ç®ÀÌ
-//top -down
+// ï¿½Çºï¿½ï¿½ï¿½Ä¡ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½ï¿½ Ç®ï¿½ï¿½
+// top -down
 #include <iostream>
 using namespace std;
 
-pair<int, int> num[45];//0, 1
+pair<int, int> num[45];  // 0, 1
 int t, n;
 
 pair<int, int> dp(int deep) {
-	pair<int, int>& ret = num[deep];
-	//¿¬»êÀ» ÇßÀ¸¸é ÆÐ½º
-	if (ret.first != -1) {
-		return ret;
-	}
-	return ret = { dp(deep - 1).first + dp(deep - 2).first , dp(deep - 1).second + dp(deep - 2).second };
+  pair<int, int>& ret = num[deep];
+  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð½ï¿½
+  if (ret.first != -1) {
+    return ret;
+  }
+  return ret = {dp(deep - 1).first + dp(deep - 2).first,
+                dp(deep - 1).second + dp(deep - 2).second};
 }
 
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-	cout.tie(NULL);
-	cin >> t;
-	//ÃÊ±âÈ­
-	for (int i = 0; i < 42; i++) {
-		num[i].first = -1;
-		num[i].second = -1;
-	}
-	num[0] = { 1, 0 };
-	num[1] = { 0, 1 };
-	for (int i = 0; i < t; i++) {
-		cin >> n;
-		cout << dp(n).first << " " << dp(n).second << "\n";
-	}
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+  cout.tie(NULL);
+  cin >> t;
+  // ï¿½Ê±ï¿½È­
+  for (int i = 0; i < 42; i++) {
+    num[i].first = -1;
+    num[i].second = -1;
+  }
+  num[0] = {1, 0};
+  num[1] = {0, 1};
+  for (int i = 0; i < t; i++) {
+    cin >> n;
+    cout << dp(n).first << " " << dp(n).second << "\n";
+  }
 
-	return 0;
+  return 0;
 }

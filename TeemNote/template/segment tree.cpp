@@ -1,52 +1,51 @@
-//¼¼±×¸ÕÆ® Æ®¸® ±¸°£ÇÕ ±¸ÇÏ±â
+// ï¿½ï¿½ï¿½×¸ï¿½Æ® Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
 
 #include <iostream>
 #include <vector>
 using namespace std;
 using ll = long long;
 
-class Segtree{
-public:
-	//¼¼±×¸ÕÆ® Æ®¸®
-	vector <ll> tree; 
-	//leafÅ©±â (±¸°£ÀÇ ¹üÀ§º¸´Ù Å« 2ÀÇ Á¦°ö¼ö)
-	int size; 
+class Segtree {
+ public:
+  // ï¿½ï¿½ï¿½×¸ï¿½Æ® Æ®ï¿½ï¿½
+  vector<ll> tree;
+  // leafÅ©ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å« 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+  int size;
 
-	Segtree(int t) {
-		for (size = 1; size < t; size *= 2);
-		tree.resize(size * 2);
-	}
+  Segtree(int t) {
+    for (size = 1; size < t; size *= 2)
+      ;
+    tree.resize(size * 2);
+  }
 
-	//bottom up ¹æ½Ä, ¼ýÀÚ ¾÷µ¥ÀÌÆ®
-	void update(int pos, ll diff) {
-		//º¯È­½ÃÅ°°íÀÚÇÏ´Â ¼ýÀÚÀÇ ¹øÈ£
-		int index = size + pos - 1;
-		while (index) {
-			tree[index] += diff;
-			index /= 2;
-		}
-	}
+  // bottom up ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+  void update(int pos, ll diff) {
+    // ï¿½ï¿½È­ï¿½ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£
+    int index = size + pos - 1;
+    while (index) {
+      tree[index] += diff;
+      index /= 2;
+    }
+  }
 
-	//°£·«È­
-	ll sum(int left, int right) {
-		return sum(1, 1, size, left, right);
-	}
+  // ï¿½ï¿½ï¿½ï¿½È­
+  ll sum(int left, int right) { return sum(1, 1, size, left, right); }
 
-	//±¸°£ ÇÕ ±¸ÇÏ±â
-	ll sum(int pos, int start, int end, int left, int right) {
-		//¹üÀ§ ¹Û
-		if (start > right || end < left) {
-			return 0;
-		}
-		//¿ÏÀüÈ÷ ¹üÀ§ ¾È
-		else if (left <= start && end <= right) {
-			return tree[pos];
-		}
-		//±× ¿Ü
-		else {
-			int mid = (start + end) / 2;
-			return sum(pos * 2, start, mid, left, right) + sum(pos * 2 + 1, mid + 1, end, left, right);
-		}
-	}
+  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ï±ï¿½
+  ll sum(int pos, int start, int end, int left, int right) {
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    if (start > right || end < left) {
+      return 0;
+    }
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+    else if (left <= start && end <= right) {
+      return tree[pos];
+    }
+    // ï¿½ï¿½ ï¿½ï¿½
+    else {
+      int mid = (start + end) / 2;
+      return sum(pos * 2, start, mid, left, right) +
+             sum(pos * 2 + 1, mid + 1, end, left, right);
+    }
+  }
 };
-

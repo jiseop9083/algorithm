@@ -1,70 +1,73 @@
+#include <algorithm>
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
-int pi[200005];
+vector<int> get_pi(string pattern) {  // O(n^2)
+  int len = pattern.size();
+  vector<int> pi(len, 0);
+  // exception: pi[0] = 0
+  pi[0] = 0;
+  for (int start = 1; start < len; start++) {
+    for (int i = 0; i < len; i++) {
+      if (pattern[start + i] != pattern[i]) break;
+      // matched (i + 1)th charactor
+      pi[start + i] = max(pi[start + i], i + 1);
+    }
+  }
+}
 
-void get_pi(string pattern) {
-	int len = pattern.size();
-	//start = 0¿¡¼­ ½ÃÀÛÇÏ¸é ¹Ù·Î matched = lenÀÌ µÈ´Ù.
-	//pi[0] = 0À¸·Î Ã³¸®ÇÏÀÚ
-	pi[0] = 0;
-	//pi[0] = 0ÀÌ¹Ç·Î 1ºÎÅÍ Å½»ö
-	int start = 1;
-	int matched = 0;
-	while (start + matched < len) {
-		//ÀÏÄ¡ÇÒ ¶§
-		if (pattern[start + matched] == pattern[matched]) {
-			pi[start + matched] = 1 + matched;
-			matched++;
-		}
-		//ÀÏÄ¡ÇÏÁö ¾ÊÀ» ¶§
-		else {
-			if (matched == 0) {
-				start++;
-			}
-			else {
-				start += (matched - pi[matched - 1]);
-				matched = pi[matched - 1];
-			}
-		}
-	}
+vector<int> getPi(string pattern) {  // O(n)
+  int len = pattern.size();
+  vector<int> pi(len, 0);
+  int start = 1;
+  int matched = 0;
+  while (start + matched < len) {
+    // ì¼ì¹˜í•  ë•Œ
+    if (pattern[start + matched] == pattern[matched]) {
+      pi[start + matched] = 1 + matched;
+      matched++;
+    }
+    // ì¼ì¹˜í•˜ì§€ ì•Šì„ ë•Œ
+    else {
+      if (matched == 0) {
+        start++;
+      } else {
+        // kmp search
+        start += (matched - pi[matched - 1]);
+        matched = pi[matched - 1];
+      }
+    }
+  }
 }
 
 bool kmp(string text, string pattern) {
-	int n = text.size();
-	int m = pattern.size();
-	//°Ë»öÀ» ½ÃÀÛÇÏ´Â À§Ä¡
-	int start = 0;
-	//pattern°ú ÀÏÄ¡ÇÏ´Â ¹®ÀÚ¿­ÀÇ ±æÀÌ
-	int matched = 0;
-	while (start <= n - m) {
-		//°Ë»ö¿¡ ¼º°øÇßÀ» ¶§
-		if (matched < m && text[start + matched] == pattern[matched]) {
-			matched++;
-			//Á¤´ä Ãß°¡(¿Ïº®È÷ ÀÏÄ¡ÇÒ ¶§)
-			if (matched == m) {
-				//Á¤´ä
-				return true;
-			}
-		}
-		//°Ë»ö¿¡ ½ÇÆÐÇßÀ»¶§
-		else {
-			//¿¹¿Ü: Ã³À½¿¡´Â ´ÙÀ½ Ä­¿¡¼­ °è¼Ó
-			if (matched == 0) {
-				start++;
-			}
-			else {
-				start += matched - pi[matched - 1];
-				matched = pi[matched - 1];
-			}
-		}
-	}
-	return false;
+  int n = text.size();
+  int m = pattern.size();
+  // start = matched = 0
+  int start = 0;
+  int matched = 0;
+  vector<int> pi = get_pi(text);
+  while (start <= n - m) {
+    // matched text's charactor and pattern's charactor
+    if (matched < m && text[start + matched] == pattern[matched]) {
+      matched++;
+      // add answer(correct exactly)
+      if (matched == m) {
+        return true;
+      }
+    }
+    // fail to search
+    else {
+      // exception: continue in text charactor if matched equals zero
+      if (matched == 0) {
+        start++;
+      } else {
+        start += matched - pi[matched - 1];
+        matched = pi[matched - 1];
+      }
+    }
+  }
+  return false;
 }
-
-
-
-	
-
-	
